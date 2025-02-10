@@ -14,5 +14,5 @@ void ABowPlayerController::BeginPlay()
 
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
 	check(Subsystem);
-	Subsystem->AddMappingContext(BowContext, 0);
+	Subsystem->AddMappingContext(BowContext, 1);
 }
