@@ -13,6 +13,8 @@ void ABowPlayerController::BeginPlay()
 	check(BowContext);
 
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
-	check(Subsystem);
-	Subsystem->AddMappingContext(BowContext, 1);
+	if (Subsystem)
+	{
+		Subsystem->AddMappingContext(BowContext, 1);
+	}	
 }

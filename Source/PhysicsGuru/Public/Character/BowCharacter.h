@@ -13,5 +13,8 @@ UCLASS()
 class PHYSICSGURU_API ABowCharacter : public ABowCharacterBase
 {
 	GENERATED_BODY()
+
+protected:
+	virtual void BeginPlay() override;
 	
 };
