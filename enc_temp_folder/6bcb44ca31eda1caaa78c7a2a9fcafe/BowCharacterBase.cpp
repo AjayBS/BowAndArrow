@@ -2,8 +2,6 @@
 
 
 #include "Character/BowCharacterBase.h"
-#include "AbilitySystem/BowAbilitySystemComponent.h"
-#include "PhysicsGuru/AbilitySystem/BowAttributeSet.h"
 
 ABowCharacterBase::ABowCharacterBase()
 {
@@ -13,8 +11,6 @@ ABowCharacterBase::ABowCharacterBase()
 	Weapon->SetupAttachment(GetMesh(), FName("WeaponHandSocket"));
 	Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
-	AbilitySystemComponent = CreateDefaultSubobject<UBowAbilitySystemComponent>("AbilitySystemComponent");
-	AttributeSet = CreateDefaultSubobject<UBowAttributeSet>("AttributeSet");
 }
 
 void ABowCharacterBase::BeginPlay()

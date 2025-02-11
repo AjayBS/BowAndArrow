@@ -6,9 +6,6 @@
 #include "GameFramework/Character.h"
 #include "BowCharacterBase.generated.h"
 
-class UAbilitySystemComponent;
-class UAttributeSet;
-
 UCLASS(Abstract)
 class PHYSICSGURU_API ABowCharacterBase : public ACharacter
 {
@@ -22,9 +19,4 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category= "Combat")
 	TObjectPtr<USkeletalMeshComponent> Weapon;
-
-	UPROPERTY()
-	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
-
-	TObjectPtr<UAttributeSet> AttributeSet;
 };
