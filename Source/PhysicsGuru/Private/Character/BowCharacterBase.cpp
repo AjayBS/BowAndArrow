@@ -17,9 +17,15 @@ ABowCharacterBase::ABowCharacterBase()
 	AttributeSet = CreateDefaultSubobject<UBowAttributeSet>("AttributeSet");
 }
 
+UAbilitySystemComponent* ABowCharacterBase::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
+}
+
 void ABowCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	AbilitySystemComponent->InitAbilityActorInfo(this, this);
 }
 
