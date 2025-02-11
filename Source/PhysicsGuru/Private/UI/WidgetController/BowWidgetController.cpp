@@ -10,3 +10,7 @@ void UBowWidgetController::SetWidgetControllerParams(const FWidgetControllerPara
 	AbilitySystemComponent = WCParams.AbilitySystemComponent;
 	AttributeSet = WCParams.AttributeSet;
 }
+
+void UBowWidgetController::BroadcastInitialValues()
+{
+}
