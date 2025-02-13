@@ -14,4 +14,7 @@ class PHYSICSGURU_API UBowGameplayAbility : public UGameplayAbility
 {
 	GENERATED_BODY()
 	
+public:
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	FGameplayTag StartupInputTag;
 };
