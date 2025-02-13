@@ -23,6 +23,7 @@ void ABowCharacter::BeginPlay()
 	}
 
 	InitializeDefaultAttributes();
+	AddCharacterAbilities();
 }
 
 void ABowCharacter::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const

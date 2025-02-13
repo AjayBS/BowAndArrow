@@ -9,6 +9,7 @@
 
 class UAbilitySystemComponent;
 class UAttributeSet;
+class UGameplayAbility;
 
 UCLASS(Abstract)
 class PHYSICSGURU_API ABowCharacterBase : public ACharacter, public IAbilitySystemInterface
@@ -22,6 +23,7 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	void AddCharacterAbilities();
 
 	UPROPERTY(EditAnywhere, Category= "Combat")
 	TObjectPtr<USkeletalMeshComponent> Weapon;
@@ -30,4 +32,8 @@ protected:
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
 	TObjectPtr<UAttributeSet> AttributeSet;
+
+private:
+	UPROPERTY(EditAnywhere, Category = "Abilities")
+	TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;
 };

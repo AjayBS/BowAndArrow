@@ -14,4 +14,6 @@ class PHYSICSGURU_API UBowAbilitySystemComponent : public UAbilitySystemComponen
 {
 	GENERATED_BODY()
 	
+public:
+	void AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities);
 };

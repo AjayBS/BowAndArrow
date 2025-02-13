@@ -29,3 +29,9 @@ void ABowCharacterBase::BeginPlay()
 	AbilitySystemComponent->InitAbilityActorInfo(this, this);
 }
 
+void ABowCharacterBase::AddCharacterAbilities()
+{
+	UBowAbilitySystemComponent* BowASC = CastChecked<UBowAbilitySystemComponent>(AbilitySystemComponent);
+	BowASC->AddCharacterAbilities(StartupAbilities);
+}
+
