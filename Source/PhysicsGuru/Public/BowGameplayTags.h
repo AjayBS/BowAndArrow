@@ -17,6 +17,7 @@ public:
 	static void InitializeNativeGameplayTags();
 
 	FGameplayTag InputTag_LMB;
+	FGameplayTag InputTag_1;
 protected:
 
 private:

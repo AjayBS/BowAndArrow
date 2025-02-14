@@ -12,4 +12,9 @@ void FBowGameplayTags::InitializeNativeGameplayTags()
 		FName("InputTag.LMB"),
 		FString("Input tag for Left Mouse Button.")
 	);
+
+	GameplayTags.InputTag_1 = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("InputTag.1"),
+		FString("Input tag for equipping bow.")
+	);
 }
