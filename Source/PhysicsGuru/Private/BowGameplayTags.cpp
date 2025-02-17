@@ -17,4 +17,9 @@ void FBowGameplayTags::InitializeNativeGameplayTags()
 		FName("InputTag.1"),
 		FString("Input tag for equipping bow.")
 	);
+
+	GameplayTags.Arrow_Damage = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Arrow.Damage"),
+		FString("Used to include damage done by arrow.")
+	);
 }

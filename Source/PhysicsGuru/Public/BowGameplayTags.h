@@ -18,6 +18,8 @@ public:
 
 	FGameplayTag InputTag_LMB;
 	FGameplayTag InputTag_1;
+
+	FGameplayTag Arrow_Damage;
 protected:
 
 private:

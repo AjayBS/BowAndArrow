@@ -6,6 +6,8 @@
 #include "AbilitySystem/Abilities/BowGameplayAbility.h"
 #include "GA_UseBowOp.generated.h"
 
+class UGameplayEffect;
+
 /**
  * 
  */
@@ -23,4 +25,7 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void BP_InputReleased();
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSubclassOf<UGameplayEffect> DamageEffectClass;
 };
