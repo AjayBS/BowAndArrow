@@ -8,7 +8,7 @@
 #include "BowCharacterBase.generated.h"
 
 class UAbilitySystemComponent;
-class UAttributeSet;
+class UBowAttributeSet;
 class UGameplayAbility;
 class UGameplayEffect;
 
@@ -21,7 +21,7 @@ public:
 	ABowCharacterBase();
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const;
-	UAttributeSet* GetAttributeSet() const { return AttributeSet; }
+	UBowAttributeSet* GetAttributeSet() const { return AttributeSet; }
 
 protected:
 	virtual void BeginPlay() override;
@@ -37,7 +37,7 @@ protected:
 	UPROPERTY()
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
-	TObjectPtr<UAttributeSet> AttributeSet;
+	TObjectPtr<UBowAttributeSet> AttributeSet;
 
 private:
 	UPROPERTY(EditAnywhere, Category = "Abilities")

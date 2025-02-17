@@ -18,20 +18,15 @@ AArrowActor::AArrowActor()
 }
 
 void AArrowActor::ApplyDamageToCharacter(AActor* OtherActor)
-{
-	if (ABowEnemy* BowEnemy = Cast<ABowEnemy>(OtherActor))
+{	
+	if (UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(OtherActor))
 	{
-		ACharacter* Player = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
-		if (UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(OtherActor))
-		{
-			FGameplayEffectContextHandle EffectContext = TargetASC->MakeEffectContext();
-			EffectContext.AddSourceObject(this);
-			const FGameplayEffectSpecHandle SpecHandle = TargetASC->MakeOutgoingSpec(DamageEffectClass, 1, EffectContext);
+		FGameplayEffectContextHandle EffectContext = TargetASC->MakeEffectContext();
+		EffectContext.AddSourceObject(this);
+		const FGameplayEffectSpecHandle SpecHandle = TargetASC->MakeOutgoingSpec(DamageEffectClass, 1, EffectContext);
 
-			TargetASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
-		}
-	}
-	
+		TargetASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
+	}	
 }
 
 // Called when the game starts or when spawned
