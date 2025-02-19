@@ -22,4 +22,9 @@ void FBowGameplayTags::InitializeNativeGameplayTags()
 		FName("Arrow.Damage"),
 		FString("Used to include damage done by arrow.")
 	);
+
+	GameplayTags.Enemy_Status_Strafing = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Enemy.Status.Strafing"),
+		FString("Used to strafe around in the world.")
+	);
 }

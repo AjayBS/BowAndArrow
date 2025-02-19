@@ -20,6 +20,7 @@ public:
 	FGameplayTag InputTag_1;
 
 	FGameplayTag Arrow_Damage;
+	FGameplayTag Enemy_Status_Strafing;
 protected:
 
 private:
