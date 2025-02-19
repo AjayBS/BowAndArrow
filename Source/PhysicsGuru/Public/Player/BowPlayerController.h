@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "GameplayTagContainer.h"
+#include "GenericTeamAgentInterface.h"
 #include "BowPlayerController.generated.h"
 
 class UInputMappingContext;
@@ -15,12 +16,16 @@ class UBowAbilitySystemComponent;
  * 
  */
 UCLASS()
-class PHYSICSGURU_API ABowPlayerController : public APlayerController
+class PHYSICSGURU_API ABowPlayerController : public APlayerController, public IGenericTeamAgentInterface
 {
 	GENERATED_BODY()
 
 public:
 	ABowPlayerController();
+
+	// Begin IGenericTeamAgentInterface interface
+	virtual FGenericTeamId GetGenericTeamId() const override;
+	// End IGenericTeamAgentInterface interface
 
 protected:
 	virtual void BeginPlay() override;
@@ -31,6 +36,8 @@ private:
 	void AbilityInputTagReleased(FGameplayTag InputTag);
 	void AbilityInputTagHeld(FGameplayTag InputTag);
 	UBowAbilitySystemComponent* GetASC();
+
+	FGenericTeamId HeroTeamId;
 
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputMappingContext> BowContext;

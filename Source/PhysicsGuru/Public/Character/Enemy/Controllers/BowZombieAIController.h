@@ -22,6 +22,10 @@ protected:
 	ABowZombieAIController(const FObjectInitializer& ObjectInitializer);
 	virtual void BeginPlay() override;
 
+	// Begin IGenericTeamAgentInterface interface
+	virtual ETeamAttitude::Type GetTeamAttitudeTowards(const AActor& Other) const override;
+	// End IGenericTeamAgentInterface interface
+
 	UFUNCTION()
 	virtual void OnEnemyPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus);
 

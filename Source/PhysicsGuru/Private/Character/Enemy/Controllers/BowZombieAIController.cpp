@@ -14,8 +14,8 @@ ABowZombieAIController::ABowZombieAIController(const FObjectInitializer& ObjectI
 {
 	AISenseConfig_Sight = CreateDefaultSubobject<UAISenseConfig_Sight>("EnemySenseConfig_Sight");
 	AISenseConfig_Sight->DetectionByAffiliation.bDetectEnemies = true;
-	AISenseConfig_Sight->DetectionByAffiliation.bDetectFriendlies = true;
-	AISenseConfig_Sight->DetectionByAffiliation.bDetectNeutrals = true;
+	AISenseConfig_Sight->DetectionByAffiliation.bDetectFriendlies = false;
+	AISenseConfig_Sight->DetectionByAffiliation.bDetectNeutrals = false;
 	AISenseConfig_Sight->SightRadius = 500.f;
 	AISenseConfig_Sight->PeripheralVisionAngleDegrees = 90.f;
 	AISenseConfig_Sight->SetMaxAge(5.0f);
@@ -23,8 +23,8 @@ ABowZombieAIController::ABowZombieAIController(const FObjectInitializer& ObjectI
 	AISenseConfig_Hearing = CreateDefaultSubobject<UAISenseConfig_Hearing>("EnemySenseConfig_Hearing");
 	AISenseConfig_Hearing->HearingRange = 3000.0f;
 	AISenseConfig_Hearing->DetectionByAffiliation.bDetectEnemies = true;
-	AISenseConfig_Hearing->DetectionByAffiliation.bDetectNeutrals = true;
-	AISenseConfig_Hearing->DetectionByAffiliation.bDetectFriendlies = true;
+	AISenseConfig_Hearing->DetectionByAffiliation.bDetectNeutrals = false;
+	AISenseConfig_Hearing->DetectionByAffiliation.bDetectFriendlies = false;
 	AISenseConfig_Hearing->SetMaxAge(35.0f);
 
 	EnemyPerceptionComponent = CreateDefaultSubobject<UAIPerceptionComponent>("EnemyPerceptionComponent");
@@ -32,6 +32,8 @@ ABowZombieAIController::ABowZombieAIController(const FObjectInitializer& ObjectI
 	EnemyPerceptionComponent->ConfigureSense(*AISenseConfig_Hearing);
 	EnemyPerceptionComponent->SetDominantSense(UAISenseConfig_Sight::StaticClass());
 	EnemyPerceptionComponent->OnTargetPerceptionUpdated.AddUniqueDynamic(this, &ThisClass::OnEnemyPerceptionUpdated);
+
+	SetGenericTeamId(FGenericTeamId(1));
 }
 
 void ABowZombieAIController::BeginPlay()
@@ -58,14 +60,25 @@ void ABowZombieAIController::BeginPlay()
 	}
 }
 
+ETeamAttitude::Type ABowZombieAIController::GetTeamAttitudeTowards(const AActor& Other) const
+{
+	const APawn* PawnToCheck = Cast<const APawn>(&Other);
+	const IGenericTeamAgentInterface* OtherTeamAgent = Cast<const IGenericTeamAgentInterface>(PawnToCheck->GetController());
+	if (OtherTeamAgent && OtherTeamAgent->GetGenericTeamId() != GetGenericTeamId())
+	{
+		return ETeamAttitude::Hostile;
+	}
+
+	return ETeamAttitude::Friendly;
+}
+
 void ABowZombieAIController::OnEnemyPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 {
-	if (UBlackboardComponent* BlackboardComponent = GetBlackboardComponent())
+	if (Stimulus.WasSuccessfullySensed() && Actor)
 	{
-		FAISenseID SightSenseID = UAISense::GetSenseID<UAISense_Sight>();
-		if (Stimulus.Type == SightSenseID)
+		if (UBlackboardComponent* BlackboardComponent = GetBlackboardComponent())
 		{
-			BlackboardComponent->SetValueAsBool(FName("CanSeePlayer"), Stimulus.WasSuccessfullySensed());
+			BlackboardComponent->SetValueAsObject(FName("TargetActor"), Actor);
 		}
-	}
+	}	
 }

@@ -9,6 +9,12 @@
 
 ABowPlayerController::ABowPlayerController()
 {
+	HeroTeamId = FGenericTeamId(0);
+}
+
+FGenericTeamId ABowPlayerController::GetGenericTeamId() const
+{
+	return HeroTeamId;
 }
 
 void ABowPlayerController::BeginPlay()
