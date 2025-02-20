@@ -24,5 +24,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "AuraAbilitySystemLibrary|GameplayMechanics")
 	static void RemoveGameplayFromActorIfFound(AActor* InActor, FGameplayTag TagToRemove);
+
+	static bool NativeDoesActorHaveTag(AActor* InActor, FGameplayTag TagToCheck);
 	
 };

@@ -15,6 +15,7 @@ public class PhysicsGuru : ModuleRules
 			"EnhancedInput", 
 			"GameplayAbilities", 
 			"GameplayTags", 
-			"GameplayTasks" });
+			"GameplayTasks",
+			"AnimGraphRuntime"});
 	}
 }

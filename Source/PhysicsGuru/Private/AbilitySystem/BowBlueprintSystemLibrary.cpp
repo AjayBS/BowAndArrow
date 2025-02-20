@@ -33,3 +33,14 @@ void UBowBlueprintSystemLibrary::RemoveGameplayFromActorIfFound(AActor* InActor,
 		ASC->RemoveLooseGameplayTag(TagToRemove);
 	}
 }
+
+bool UBowBlueprintSystemLibrary::NativeDoesActorHaveTag(AActor* InActor, FGameplayTag TagToCheck)
+{
+	if (InActor != nullptr)
+	{
+		UBowAbilitySystemComponent* ASC = NativeGetASCFromActor(InActor);
+		return ASC->HasMatchingGameplayTag(TagToCheck);
+	}
+
+	return false;
+}
