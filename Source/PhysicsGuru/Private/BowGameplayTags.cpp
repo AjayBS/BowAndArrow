@@ -27,4 +27,9 @@ void FBowGameplayTags::InitializeNativeGameplayTags()
 		FName("Enemy.Status.Strafing"),
 		FString("Used to strafe around in the world.")
 	);
+
+	GameplayTags.Enemy_Ability_Melee = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Enemy.Ability.Melee"),
+		FString("Enemy melee ability.")
+	);
 }

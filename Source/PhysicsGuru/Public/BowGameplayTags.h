@@ -21,6 +21,7 @@ public:
 
 	FGameplayTag Arrow_Damage;
 	FGameplayTag Enemy_Status_Strafing;
+	FGameplayTag Enemy_Ability_Melee;
 protected:
 
 private:

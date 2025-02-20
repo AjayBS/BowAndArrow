@@ -8,6 +8,7 @@
 #include "BowCharacterBase.generated.h"
 
 class UAbilitySystemComponent;
+class UBowAbilitySystemComponent;
 class UBowAttributeSet;
 class UGameplayAbility;
 class UGameplayEffect;
@@ -34,8 +35,8 @@ protected:
 	UPROPERTY(EditAnywhere, Category= "Combat")
 	TObjectPtr<USkeletalMeshComponent> Weapon;
 
-	UPROPERTY()
-	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+	UPROPERTY(BlueprintReadOnly)
+	TObjectPtr<UBowAbilitySystemComponent> AbilitySystemComponent;
 
 	TObjectPtr<UBowAttributeSet> AttributeSet;
 

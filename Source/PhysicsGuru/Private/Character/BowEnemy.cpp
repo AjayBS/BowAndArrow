@@ -4,6 +4,7 @@
 #include "Character/BowEnemy.h"
 
 #include "Components/WidgetComponent.h"
+#include "AbilitySystem/BowAbilitySystemComponent.h"
 #include "PhysicsGuru/AbilitySystem/BowAttributeSet.h"
 #include "UI/Widget/BowUserWidget.h"
 
@@ -17,6 +18,7 @@ void ABowEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 
+	AddCharacterAbilities();
 	InitializeDefaultAttributes();
 
 	UBowUserWidget* BowUserWidget = Cast<UBowUserWidget>(HealthBar->GetUserWidgetObject());
