@@ -5,16 +5,20 @@
 
 #include "BowGameplayTags.h"
 #include "AbilitySystem/Abilities/BowGameplayAbility.h"
+#include "Interfaces/CombatInterface.h"
 
 void UBowAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities)
 {
 	for (const TSubclassOf<UGameplayAbility> AbilityClass : StartupAbilities)
 	{
-		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityClass, 1);
-		if (const UBowGameplayAbility* BowAbility = Cast<UBowGameplayAbility>(AbilitySpec.Ability))
+		if (ICombatInterface* CombatInterface = Cast<ICombatInterface>(GetAvatarActor()))
 		{
-			AbilitySpec.GetDynamicSpecSourceTags().AddTag(BowAbility->StartupInputTag);
-			GiveAbility(AbilitySpec);
+			FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityClass, CombatInterface->GetPlayerLevel());
+			if (const UBowGameplayAbility* BowAbility = Cast<UBowGameplayAbility>(AbilitySpec.Ability))
+			{
+				AbilitySpec.GetDynamicSpecSourceTags().AddTag(BowAbility->StartupInputTag);
+				GiveAbility(AbilitySpec);
+			}
 		}		
 	}
 }
