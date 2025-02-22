@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
+#include "Interfaces/CombatInterface.h"
 #include "BowCharacterBase.generated.h"
 
 class UAbilitySystemComponent;
@@ -14,7 +15,7 @@ class UGameplayAbility;
 class UGameplayEffect;
 
 UCLASS(Abstract)
-class PHYSICSGURU_API ABowCharacterBase : public ACharacter, public IAbilitySystemInterface
+class PHYSICSGURU_API ABowCharacterBase : public ACharacter, public IAbilitySystemInterface, public ICombatInterface
 {
 	GENERATED_BODY()
 
