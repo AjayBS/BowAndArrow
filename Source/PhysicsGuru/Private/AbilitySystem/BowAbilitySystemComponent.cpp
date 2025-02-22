@@ -13,7 +13,7 @@ void UBowAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf<
 		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityClass, 1);
 		if (const UBowGameplayAbility* BowAbility = Cast<UBowGameplayAbility>(AbilitySpec.Ability))
 		{
-			AbilitySpec.DynamicAbilityTags.AddTag(BowAbility->StartupInputTag);
+			AbilitySpec.GetDynamicSpecSourceTags().AddTag(BowAbility->StartupInputTag);
 			GiveAbility(AbilitySpec);
 		}		
 	}
@@ -28,7 +28,7 @@ void UBowAbilitySystemComponent::AbilityInputTagHeld(const FGameplayTag& InputTa
 
 	for (FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
 	{
-		if (AbilitySpec.DynamicAbilityTags.HasTagExact(InputTag))
+		if (AbilitySpec.GetDynamicSpecSourceTags().HasTagExact(InputTag))
 		{
 			AbilitySpecInputPressed(AbilitySpec);
 			if (!AbilitySpec.IsActive())
@@ -48,7 +48,7 @@ void UBowAbilitySystemComponent::AbilityInputTagReleased(const FGameplayTag& Inp
 
 	for (FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
 	{
-		if (AbilitySpec.DynamicAbilityTags.HasTagExact(InputTag))
+		if (AbilitySpec.GetDynamicSpecSourceTags().HasTagExact(InputTag))
 		{
 			AbilitySpecInputReleased(AbilitySpec);
 		}

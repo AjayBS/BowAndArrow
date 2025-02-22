@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "CharacterClassInfo.h"
 #include "BowBlueprintSystemLibrary.generated.h"
 
 class UBowAbilitySystemComponent;
@@ -18,6 +19,15 @@ class PHYSICSGURU_API UBowBlueprintSystemLibrary : public UBlueprintFunctionLibr
 
 public:
 	static UBowAbilitySystemComponent* NativeGetASCFromActor(AActor* InActor);
+
+	UFUNCTION(BlueprintCallable, Category = "WarAbilitySystemLibrary|CharacterClassDefaults")
+	static void GiveStartupAbilities(const UObject* WorldContextObject, UBowAbilitySystemComponent* ASC, ECharacterClass CharacterClass);
+
+	UFUNCTION(BlueprintCallable, Category = "AuraAbilitySystemLibrary|CharacterClassDefaults")
+	static UCharacterClassInfo* GetCharacterClassInfo(const UObject* WorldContextObject);
+
+	UFUNCTION(BlueprintCallable, Category = "AuraAbilitySystemLibrary|CharacterClassDefaults")
+	static void InitializeDefaultAttributes(const UObject* WorldContextObject, UAbilitySystemComponent* ASC, ECharacterClass CharacterClass, float Level);
 
 	UFUNCTION(BlueprintCallable, Category = "AuraAbilitySystemLibrary|GameplayMechanics")
 	static void AddGameplayTagToActorIfNone(AActor* InActor, FGameplayTag TagToAdd);

@@ -6,12 +6,44 @@
 #include "AbilitySystemComponent.h"
 #include "AbilitySystem/BowAbilitySystemComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
+#include "GameMode/BowGameModeBase.h"
+#include "Kismet/GameplayStatics.h"
+
+DEFINE_LOG_CATEGORY_STATIC(LogWarBlueprintLibrary, Warning, All);
 
 UBowAbilitySystemComponent* UBowBlueprintSystemLibrary::NativeGetASCFromActor(AActor* InActor)
 {
 	check(InActor);
 
 	return CastChecked<UBowAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(InActor));
+}
+
+void UBowBlueprintSystemLibrary::GiveStartupAbilities(const UObject* WorldContextObject, UBowAbilitySystemComponent* ASC, ECharacterClass CharacterClass)
+{
+	UCharacterClassInfo* CharacterClassInfo = GetCharacterClassInfo(WorldContextObject);
+	FCharacterClassDefaultInfo DefaultInfo = CharacterClassInfo->GetClassDefaultInfo(CharacterClass);
+
+	ASC->AddCharacterAbilities(DefaultInfo.Abilities);
+}
+
+UCharacterClassInfo* UBowBlueprintSystemLibrary::GetCharacterClassInfo(const UObject* WorldContextObject)
+{
+	ABowGameModeBase* BowGameMode = Cast<ABowGameModeBase>(UGameplayStatics::GetGameMode(WorldContextObject));
+	if (BowGameMode == nullptr)
+	{
+		UE_LOG(LogWarBlueprintLibrary, Warning, TEXT("Game mode is nullptr. Returning."));
+		return nullptr;
+	}
+	return BowGameMode->CharacterClassInfo.GetDefaultObject();
+}
+
+void UBowBlueprintSystemLibrary::InitializeDefaultAttributes(const UObject* WorldContextObject, UAbilitySystemComponent* ASC, ECharacterClass CharacterClass, float Level)
+{
+	UCharacterClassInfo* CharacterClassInfo = GetCharacterClassInfo(WorldContextObject);
+	FCharacterClassDefaultInfo DefaultInfo = CharacterClassInfo->GetClassDefaultInfo(CharacterClass);
+
+	const FGameplayEffectSpecHandle PrimaryAttributesSpecHandle = ASC->MakeOutgoingSpec(DefaultInfo.PrimaryAttributes, Level, ASC->MakeEffectContext());
+	ASC->ApplyGameplayEffectSpecToSelf(*PrimaryAttributesSpecHandle.Data.Get());
 }
 
 void UBowBlueprintSystemLibrary::AddGameplayTagToActorIfNone(AActor* InActor, FGameplayTag TagToAdd)

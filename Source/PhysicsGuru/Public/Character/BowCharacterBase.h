@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
 #include "Interfaces/CombatInterface.h"
+#include "CharacterClassInfo.h"
 #include "BowCharacterBase.generated.h"
 
 class UAbilitySystemComponent;
@@ -29,6 +30,12 @@ protected:
 	virtual void BeginPlay() override;
 	void AddCharacterAbilities();
 	void InitializeDefaultAttributes() const;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Character Class Defaults")
+	ECharacterClass CharacterClass = ECharacterClass::Player;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Character Class Defaults")
+	int32 Level = 1;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
 	TSubclassOf<UGameplayEffect> DefaultPrimaryAttributes;

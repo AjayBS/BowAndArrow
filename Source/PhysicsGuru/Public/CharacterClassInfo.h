@@ -12,6 +12,7 @@ class UGameplayAbility;
 UENUM(BlueprintType)
 enum class ECharacterClass : uint8
 {
+	Player,
 	ZombieMelee
 };
 
@@ -23,14 +24,15 @@ struct FCharacterClassDefaultInfo
 	UPROPERTY(EditDefaultsOnly, Category = "Class Defaults")
 	TSubclassOf<UGameplayEffect> PrimaryAttributes;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Class Defaults")
-	TSubclassOf<UGameplayEffect> SecondaryAttributes;
+	UPROPERTY(EditDefaultsOnly, Category = "Common class defaults")
+	TArray<TSubclassOf<UGameplayAbility>> Abilities;
+
 };
 
 /**
  * 
  */
-UCLASS()
+UCLASS(Blueprintable, BlueprintType)
 class PHYSICSGURU_API UCharacterClassInfo : public UDataAsset
 {
 	GENERATED_BODY()

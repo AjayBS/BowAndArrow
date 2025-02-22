@@ -4,6 +4,7 @@
 #include "Character/BowCharacterBase.h"
 #include "AbilitySystem/BowAbilitySystemComponent.h"
 #include "PhysicsGuru/AbilitySystem/BowAttributeSet.h"
+#include "AbilitySystem/BowBlueprintSystemLibrary.h"
 
 ABowCharacterBase::ABowCharacterBase()
 {
@@ -32,26 +33,11 @@ void ABowCharacterBase::BeginPlay()
 
 void ABowCharacterBase::AddCharacterAbilities()
 {
-	UBowAbilitySystemComponent* BowASC = CastChecked<UBowAbilitySystemComponent>(AbilitySystemComponent);
-	BowASC->AddCharacterAbilities(StartupAbilities);
-}
-
-void ABowCharacterBase::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const
-{
-	check(IsValid(GetAbilitySystemComponent()));
-	check(GameplayEffectClass);
-	FGameplayEffectContextHandle ContextHandle = GetAbilitySystemComponent()->MakeEffectContext();
-	ContextHandle.AddSourceObject(this);
-	const FGameplayEffectSpecHandle SpecHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(GameplayEffectClass, Level, ContextHandle);
-	FActiveGameplayEffectHandle Handle = GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(), GetAbilitySystemComponent());
-	if (!Handle.IsValid())
-	{
-		UE_LOG(LogTemp, Error, TEXT("Failed to apply Gameplay Effect"));
-	}
+	UBowBlueprintSystemLibrary::GiveStartupAbilities(this, AbilitySystemComponent, CharacterClass);
 }
 
 void ABowCharacterBase::InitializeDefaultAttributes() const
 {
-	ApplyEffectToSelf(DefaultPrimaryAttributes, 1.f);
+	UBowBlueprintSystemLibrary::InitializeDefaultAttributes(this, Cast<UAbilitySystemComponent>(AbilitySystemComponent), CharacterClass, Level);
 }
 
