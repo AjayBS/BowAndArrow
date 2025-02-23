@@ -49,3 +49,13 @@ void ABowEnemy::BeginPlay()
 	}
 	
 }
+
+void ABowEnemy::SetCombatTarget_Implementation(AActor* InCombatTarget)
+{
+	CombatTarget = InCombatTarget;
+}
+
+AActor* ABowEnemy::GetCombatTarget_Implementation() const
+{
+	return CombatTarget;
+}
