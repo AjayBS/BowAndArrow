@@ -23,6 +23,13 @@ class PHYSICSGURU_API ABowCharacterBase : public ACharacter, public IAbilitySyst
 public:
 	ABowCharacterBase();
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+
+	/** Combat Interface */
+	virtual FVector GetCombatSocketLocation_Implementation() override;
+	virtual bool IsDead_Implementation() const override;
+	virtual AActor* GetAvatar_Implementation() override;
+	/** End Combat Interface */
+
 	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const;
 	UBowAttributeSet* GetAttributeSet() const { return AttributeSet; }
 
@@ -30,6 +37,11 @@ protected:
 	virtual void BeginPlay() override;
 	void AddCharacterAbilities();
 	void InitializeDefaultAttributes() const;
+
+	bool bDead = false;
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	FName MeshSocketName;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Character Class Defaults")
 	ECharacterClass CharacterClass = ECharacterClass::Player;

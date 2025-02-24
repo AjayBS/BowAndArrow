@@ -23,6 +23,21 @@ UAbilitySystemComponent* ABowCharacterBase::GetAbilitySystemComponent() const
 	return AbilitySystemComponent;
 }
 
+FVector ABowCharacterBase::GetCombatSocketLocation_Implementation()
+{
+	return GetMesh()->GetSocketLocation(MeshSocketName);
+}
+
+bool ABowCharacterBase::IsDead_Implementation() const
+{
+	return bDead;
+}
+
+AActor* ABowCharacterBase::GetAvatar_Implementation()
+{
+	return this;
+}
+
 void ABowCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
