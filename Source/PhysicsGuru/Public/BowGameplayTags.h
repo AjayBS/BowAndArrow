@@ -20,6 +20,7 @@ public:
 	FGameplayTag InputTag_1;
 
 	FGameplayTag Arrow_Damage;
+	FGameplayTag Damage_Melee;
 	FGameplayTag Enemy_Status_Strafing;
 	FGameplayTag Enemy_Ability_Melee;
 protected:
